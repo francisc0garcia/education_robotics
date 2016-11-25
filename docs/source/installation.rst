@@ -85,6 +85,8 @@ we can run a simulation that includes a simple robot + environment.
 
     cd ~/catkin_ws
     source devel/setup.bash
+    roslaunch education_robotics demo_robot_simple.launch
+
 
 
 Now you are ready to play and extend the project, let's go to section Tutorials and extensions.

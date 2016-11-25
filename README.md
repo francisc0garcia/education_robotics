@@ -2,6 +2,10 @@
 
 ROS packages for teaching robotics and control systems.
 
+Description of project and documentation:
+
+http://education-robotics.readthedocs.io/
+
 Developed by:
 
 - Francisco J. Garcia R. - garciar@rhrk.uni-kl.de
