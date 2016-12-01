@@ -22,6 +22,7 @@ Prepare virtual machine
 
 - the user is : **ubuntu** and password: **ubuntu**
 
+If you get access to virtual machine successfully, then you can go to last section "Test project".
 
 If you have an ubuntu PC and want to install the project locally, please follow the next tutorial:
 

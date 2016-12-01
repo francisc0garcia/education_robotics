@@ -50,11 +50,15 @@ class robot_map_example:
             # if map is valid:
             if total_rows > 0 and total_cols > 0:
                 # define a safety boundary region around robot
-                boundary = 40
+                boundary = 40 # +/- 40 pixels (1 meter = 100 pixels)
                 detected_obstacle = False
 
                 # loop inside boundary, check if there are obstacles
+
+                # for y starting at (robot_position_y - boundary) until (robot_position_y + boundary)
                 for y in range( int((self.robot_position_y*100) - boundary), int((self.robot_position_y*100) + boundary) ):
+
+                    # for x starting at (robot_position_x - boundary) until (robot_position_x + boundary)
                     for x in range( int((self.robot_position_x*100) - boundary), int((self.robot_position_x*100) + boundary) ):
                         map_point = self.map[x, y]
                         if map_point < 1:

@@ -9,17 +9,27 @@ This tutorials assume you have already installed and tested project, see install
 Getting started
 ^^^^^^^^^^^^^^^
 
-The demo (demo_robot_simple.launch) that you have tested in previous section shows a simple example of how ROS interface with gazebo.
+You can run the test demo by typing in a command window:
 
-This demo is composed by the following nodes (processes):
+.. code-block:: none
 
-- **robot_move_example:** A python scripts that send command velocities for robot (/robot/cmd_vel), placed on: education_robotics/src/robot_move_example.py
+    cd ~/catkin_ws
+    source devel/setup.bash
+    roslaunch education_robotics demo_robot_simple.launch
 
-- **gazebo:** shows and moves the robot
+This demo (demo_robot_simple.launch) shows a simple example of how ROS interface with gazebo.
 
-Node graph of simple demo:
+The demo is composed by the following nodes (processes):
+
+- **robot_move_example:** A python scripts that send command velocities for robot (/robot/cmd_vel), placed on: **education_robotics/src/robot_move_example.py**
+
+- **gazebo:** Simulator: shows and moves the robot
+
+Now we can check how this nodes are connected using Node graph:
 
 .. image:: media/nodes_simple_robot.png
+
+As you can see here, the node **robot_move_example:** sends the command **/robot/cmd_vel** to the node **gazebo**.
 
 Let's have a look at some parts of **robot_move_example.py** script:
 
