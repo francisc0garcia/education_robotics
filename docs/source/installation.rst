@@ -12,7 +12,7 @@ you can choose between two options:
 Prepare virtual machine
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-- Download virtual machine from: http://goo.gl/vyQSGy
+- Download virtual machine from: https://goo.gl/gnFGAz
 
 - Install VMware player (free for non-commercial application) from: http://www.vmware.com/products/player/playerpro-evaluation.html
 
