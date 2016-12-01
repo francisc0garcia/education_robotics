@@ -17,7 +17,8 @@ Contents:
 
     Description of project <description.rst>
     How to install the project? <installation.rst>
-    Tutorials and extensions <tutorials.rst>
+    Introduction <tutorials.rst>
+    Navigation <navigation.rst>
     Frequent questions <questions.rst>
     Contact <contact.rst>
 
@@ -29,5 +30,11 @@ Developed by:
 - Francisco J. Garcia R. - garciar@rhrk.uni-kl.de
 - M. Sc. Alen Turnwald - turnwald@eit.uni-kl.de
 
-Institute for control systems
-University of Kaiserslautern 2016
+
+**Institute for control systems**
+
+**University of Kaiserslautern 2016**
+
+.. image:: media/eit_logo.png
+
+.. image:: media/tukl_logo.png

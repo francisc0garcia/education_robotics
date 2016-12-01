@@ -4,6 +4,26 @@ How to install education robotics
 In order to use this project, we must install first ROS (tested on Jade and kinectic),
 then compile the project and finally run some simulations and tests.
 
+you can choose between two options:
+
+- Use virtual machine which has already everything ready (windows users)
+- Install ROS and dependencies in your owm ubuntu computer
+
+Prepare virtual machine
+^^^^^^^^^^^^^^^^^^^^^^^
+
+- Download virtual machine from: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx (TODO: update link)
+
+- Install VMware player (free for non-commercial application) from: http://www.vmware.com/products/player/playerpro-evaluation.html
+
+- uncompress virtual machine and open it using VMware workstation player
+
+- Please disable 3D acceleration graphics, it is not supported by gazebo simulator
+
+- the user is : **ubuntu** and password: **ubuntu2016**
+
+
+If you have an ubuntu PC and want to install the project locally, please follow the next tutorial:
 
 Install ROS and dependencies
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -52,8 +72,10 @@ And finally prepare environment:
     echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
     source ~/.bashrc
 
-Compile project
-^^^^^^^^^^^^^^^
+Compile project (Only for local installation)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This step is only required if you install the project locally, please skip it if you use virtual machine.
 
 First we need to install some dependencies and ROS packages:
 
@@ -87,6 +109,6 @@ we can run a simulation that includes a simple robot + environment.
     source devel/setup.bash
     roslaunch education_robotics demo_robot_simple.launch
 
-
+if everything is correct, you should see a robot moving with predefined steps.
 
 Now you are ready to play and extend the project, let's go to section Tutorials and extensions.

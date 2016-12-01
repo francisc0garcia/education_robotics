@@ -1,0 +1,23 @@
+-- Launch simple demo
+
+cd ~/Documents/UNI/HiWi_Control_systems/code/control_systems
+source devel/setup.bash
+roslaunch education_robotics demo_robot_simple.launch
+
+
+- Allow any user to use joystick
+sudo chmod a+rw /dev/input/js0
+
+
+- remove password with sudo
+edit:               sudo nano /etc/sudoers
+add to end file:    odroid ALL=(ALL) NOPASSWD: ALL
+
+
+- set GCC 5 for ubuntu 16.04
+export CC=/usr/bin/gcc-5
+export CXX=/usr/bin/g++-5
+
+
+- if gazebo does not run, kill all gzserver
+sudo killall gzserver gzclient

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1000"
+   height="500"
+   viewBox="0 0 999.99999 500.00001"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="demo_map_2.svg"
+   inkscape:export-filename="/home/pach0/Documents/UNI/HiWi_Control_systems/code/control_systems/src/education_robotics/simulation/worlds/map_image.png"
+   inkscape:export-xdpi="89.820351"
+   inkscape:export-ydpi="89.820351">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="44.833923"
+     inkscape:cy="248.68492"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     units="px"
+     inkscape:window-width="1301"
+     inkscape:window-height="744"
+     inkscape:window-x="1745"
+     inkscape:window-y="306"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid3336"
+       spacingx="9.9999999"
+       spacingy="10" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-552.36216)">
+    <g
+       id="g3403">
+      <path
+         inkscape:connector-curvature="0"
+         id="path3344"
+         d="m 0,552.36217 1000,0 0,500.00003 -1000,0 z"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="ccccccccccccccccccccccccccc"
+         inkscape:connector-curvature="0"
+         id="path3348"
+         d="m 9.9260329,562.08796 980.1754871,0.36208 0.25554,480.26926 -230.24356,-0.3472 -0.0689,-220.09922 L 650,822.54073 l 0,9.82143 100.04464,0.13393 L 750,1042.3622 10.357143,1042.7193 9.9476976,722.61471 l 190.4094424,0.1046 -0.3265,209.70457 460.43463,0.0736 -0.10457,-10.28319 -190.68718,-0.0526 0.68365,-109.79949 -10,-0.17857 -0.26894,109.85052 -250.34029,0.32804 0.50508,-199.66196 660.01487,-0.33803 -0.14794,150.08293 10.06314,0.0316 0.26337,-159.93592 -870.4987324,-0.20025 z"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+  </g>
+</svg>

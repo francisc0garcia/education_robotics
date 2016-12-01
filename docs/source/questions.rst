@@ -25,7 +25,7 @@ Interface problems
 
 * When I close a node that uses gazebo, it takes too long before it closes.
 
-Answer: You can close manually the process, run in a command window:
+Answer: You can close manually the process, run in a separate command window:
 
 .. code-block:: none
 

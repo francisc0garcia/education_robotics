@@ -10,6 +10,6 @@
         <arg name="debug" value="false"/>
     </include>
 
-    <node name="robot_move_example" pkg="education_robotics" type="robot_move_example.py"  />
+    <node name="basicFigures" pkg="education_robotics" type="1_basic_figures.py"  />
 
 </launch>

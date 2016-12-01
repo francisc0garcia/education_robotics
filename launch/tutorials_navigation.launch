@@ -1,0 +1,22 @@
+<launch>
+    <env name="GAZEBO_MODEL_PATH" value="$(find education_robotics)/simulation/models"/>
+
+    <include file="$(find gazebo_ros)/launch/empty_world.launch" >
+        <arg name="world_name" value="$(find education_robotics)/simulation/worlds/demo_map.world"/>
+        <arg name="paused" value="true"/>
+        <arg name="use_sim_time" value="true"/>
+        <arg name="gui" value="true"/>
+        <arg name="headless" value="true"/>
+        <arg name="debug" value="false"/>
+    </include>
+
+    <node name="robot_update_map" pkg="education_robotics" type="robot_update_map.py"  >
+        <param name="map_path_file" type="string" value="$(find education_robotics)/simulation/worlds/map_image.png" />
+    </node>
+
+    <node name="navigation" pkg="education_robotics" type="2_navigation.py"  />
+
+    <node name="custom_rqt_perspective" pkg="rqt_gui" type="rqt_gui"
+          args="--perspective-file  $(find education_robotics)/config/education_robotics_rqt.perspective" />
+
+</launch>
