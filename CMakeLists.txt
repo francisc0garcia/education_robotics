@@ -35,4 +35,4 @@ add_library(robot_ros_utils src/gazebo_plugins/robot_ros_utils.cpp)
 target_link_libraries(robot_ros_utils ${GAZEBO_LIBRARIES} ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 
 add_library(robot_ros_diff_drive src/gazebo_plugins/robot_ros_diff_drive.cpp)
-target_link_libraries(robot_ros_diff_drive gazebo_ros_utils ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES})
+target_link_libraries(robot_ros_diff_drive robot_ros_utils ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES})

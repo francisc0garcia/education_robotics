@@ -16,7 +16,7 @@ You can start the program by running:
 
     cd ~/catkin_ws
     source devel/setup.bash
-    roslaunch education_robotics tutorials_navegation.launch
+    roslaunch education_robotics tutorials_navigation.launch
 
 In the same way as before, you can edit a template located at: **education_robotics/src/tutorials/2_navigation.py**
 
