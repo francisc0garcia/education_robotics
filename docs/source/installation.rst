@@ -82,7 +82,7 @@ First we need to install some dependencies and ROS packages:
 
 .. code-block:: none
 
-    sudo apt-get install libqwt-dev ros-kinetic-teleop-twist-joy  ros-kinetic-rviz-imu-plugin python-smbus ros-kinetic-rqt-multiplot
+    sudo apt-get install libqwt-dev ros-kinetic-teleop-twist-joy  ros-kinetic-rviz-imu-plugin python-smbus ros-kinetic-rqt-multiplot git
 
 
 Finally we create a workspace for project, clone github repository, install dependencies and compile it:
@@ -93,6 +93,13 @@ Finally we create a workspace for project, clone github repository, install depe
     cd ~/catkin_ws/src
     git clone https://github.com/francisc0garcia/education_robotics
     cd ..
+    catkin_make
+
+
+If you get some error during compilation, check if all dependencies are installed using:
+
+.. code-block:: none
+    cd ~/catkin_ws
     source devel/setup.bash
     rosdep install education_robotics
     catkin_make
