@@ -1,111 +1,82 @@
 #!/usr/bin/env python
 
-#import dependencies
-import sys
-import roslib
-import rospy
 import math
-import tf
-import cv2
-from geometry_msgs.msg import Twist
-from nav_msgs.msg import Odometry
-from tf.transformations import euler_from_quaternion
-from sensor_msgs.msg import Image
-from cv_bridge import CvBridge, CvBridgeError
-import numpy as np
+import rospy
+# import dependencies
+import sys
+import time
+
+from RobotController import *
 
 rad2degrees = 180.0/math.pi
 
-class robot_map_example:
 
+class RobotMapExample:
     def __init__(self):
         # Init ros node
-        rospy.init_node('robot_map_example')
+        rospy.init_node('RobotMapExample')
 
-        # create a publisher for command velocity
-        self.cmd_vel_pub = rospy.Publisher('/robot/cmd_vel', Twist, queue_size=1)
-
-        # initialize variables for position and orientation of robot
-        [self.robot_position_x, self.robot_position_y, self.robot_orientation,
-         self.robot_roll, self.robot_pitch, self.robot_yaw] = [0, 0, 0, 0, 0, 0]
-
-        self.map = np.zeros( (0, 0), dtype=np.uint8)
-        self.bridge = CvBridge()
+        self.robot = RobotController()
 
         # define rate of  10 hz
         self.rate = rospy.Rate(10.0)
 
-        # create subscriber for robot odometry
-        self.sub_odometry = rospy.Subscriber('/robot/odom', Odometry, self.process_odometry_message, queue_size=1)
-
-        # create subscriber for map
-        self.image_sub = rospy.Subscriber("/robot/map/image_raw", Image, self.callback_map)
-
         # infinity loop
         while not rospy.is_shutdown():
-
             # extract dimension of map
-            (total_rows, total_cols) = self.map.shape
+            (total_rows, total_cols) = self.robot.map.shape
 
-            # if map is valid:
+            # if map is ready:
             if total_rows > 0 and total_cols > 0:
+                # start moving robot
+                self.robot.move(0.2)
+
                 # define a safety boundary region around robot
-                boundary = 40 # +/- 40 pixels (1 meter = 100 pixels)
-                detected_obstacle = False
+                boundary = 50  # +/- 50 pixels (1 meter = 100 pixels)
+
+                # get position of the robot
+                [robot_position_x, robot_position_y, robot_orientation] = self.robot.get_position()
 
                 # loop inside boundary, check if there are obstacles
+                lower_range_y = robot_position_y - boundary
+                higher_range_y = robot_position_y + boundary
 
-                # for y starting at (robot_position_y - boundary) until (robot_position_y + boundary)
-                for y in range( int((self.robot_position_y*100) - boundary), int((self.robot_position_y*100) + boundary) ):
+                lower_range_x = robot_position_x - boundary
+                higher_range_x = robot_position_x + boundary
 
-                    # for x starting at (robot_position_x - boundary) until (robot_position_x + boundary)
-                    for x in range( int((self.robot_position_x*100) - boundary), int((self.robot_position_x*100) + boundary) ):
-                        map_point = self.map[x, y]
-                        if map_point < 1:
-                            # Obstacle detected!
-                            detected_obstacle = True
+                # for y starting at "lower_range_y" until "higher_range_y"
+                for y in range(lower_range_y, higher_range_y):
 
-                            # Here design your own routine for obstacle avoidance and navigation!
-                            # remember you should send command velocities using self.cmd_vel_pub
-                            # if you have questions, please check previous examples.
+                    # for y starting at "lower_range_x" until "higher_range_x"
+                    for x in range(lower_range_x, higher_range_x):
+                        # get map point
+                        # map_point = 255 means free space, zero is obstacle
+                        map_point = self.robot.map[x, y]
+
+                        # if map_point value = 0, an obstacle is detected
+                        if map_point == 0:
+                            # stop robot
+                            self.robot.move(0.0)
+
+                            # obstacle detected, rotate and continue
+                            self.robot.rotate(0.3)
+                            time.sleep(1.5)
+                            self.robot.rotate(0.0)
+
+                            # move forward
+                            self.robot.move(0.2)
+                            time.sleep(0.5)
 
                             # for logging: visualize using console plugin in rqt.
-                            # rospy.loginfo("close to obstacle y %f  x %f p %f", y , x, map_point)
-
+                            rospy.loginfo("close to obstacle y %f  x %f p %f", y , x, map_point)
                             break
 
             self.rate.sleep()
 
-    # Update map
-    def callback_map(self, data):
-        try:
-            temp_map = self.bridge.imgmsg_to_cv2(data, "bgr8")
-
-            # convert into gray scale
-            (rows, cols, channels) = temp_map.shape
-            if cols > 0 and rows > 0 :
-                self.map = cv2.cvtColor(temp_map,cv2.COLOR_RGB2GRAY)
-
-        except CvBridgeError as e:
-            print(e)
-
-    # update position and orientation of robot (odometry)
-    def process_odometry_message(self, odometry_msg):
-        self.robot_position_x = odometry_msg.pose.pose.position.x
-        self.robot_position_y = odometry_msg.pose.pose.position.y
-        self.robot_orientation = odometry_msg.pose.pose.orientation.y
-
-        quaternion = (
-            odometry_msg.pose.pose.orientation.x,
-            odometry_msg.pose.pose.orientation.y,
-            odometry_msg.pose.pose.orientation.z,
-            odometry_msg.pose.pose.orientation.w)
-
-        (self.robot_roll, self.robot_pitch, self.robot_yaw) = euler_from_quaternion(quaternion)
 
 def main(args):
     try:
-        ic = robot_map_example()
+        ic = RobotMapExample()
     except KeyboardInterrupt:
         print("Shutting down")
 

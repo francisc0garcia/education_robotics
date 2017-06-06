@@ -20,7 +20,7 @@ catkin_package(
         INCLUDE_DIRS include
         LIBRARIES education_robotics gazebo_ros_diff_drive
         CATKIN_DEPENDS roscpp rospy std_msgs
-        DEPENDS  roscpp gazebo_ros gazebo  SDF
+        DEPENDS  roscpp rospy gazebo_ros gazebo  SDF
 )
 
 include_directories(

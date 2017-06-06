@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-
-# import dependencies
 import sys
 import roslib
 import rospy
@@ -17,11 +14,8 @@ import numpy as np
 rad2degrees = 180.0/math.pi
 
 
-class robot_map_example:
+class RobotController:
     def __init__(self):
-        # Init ros node
-        rospy.init_node('robot_map_example')
-
         # initialize variables for position and orientation of robot
         [self.robot_position_x, self.robot_position_y, self.robot_orientation,
          self.robot_roll, self.robot_pitch, self.robot_yaw] = [0, 0, 0, 0, 0, 0]
@@ -29,8 +23,8 @@ class robot_map_example:
         self.map = np.zeros((0, 0), dtype=np.uint8)
         self.bridge = CvBridge()
 
-        # define rate of  10 hz
-        self.rate = rospy.Rate(10.0)
+        # create a publisher for command velocity
+        self.cmd_vel_pub = rospy.Publisher('/robot/cmd_vel', Twist, queue_size=1)
 
         # create subscriber for robot odometry
         self.sub_odometry = rospy.Subscriber('/robot/odom', Odometry, self.process_odometry_message, queue_size=1)
@@ -38,34 +32,29 @@ class robot_map_example:
         # create subscriber for map
         self.image_sub = rospy.Subscriber("/robot/map/image_raw", Image, self.callback_map)
 
-        # infinity loop
-        while not rospy.is_shutdown():
+    def get_position(self):
+        pos_x = int(self.robot_position_x*100)
+        pos_y = int(self.robot_position_y*100)
 
-            # extract dimension of map
-            (total_rows, total_cols) = self.map.shape
+        return [pos_x, pos_y, self.robot_yaw]
 
-            # if map is valid:
-            if total_rows > 0 and total_cols > 0:
-                # define a safety boundary region around robot
-                boundary = 40
-                detected_obstacle = False
+    def move(self, linear_velocity):
+        # create Twist message
+        cmd = Twist()
+        cmd.linear.x = linear_velocity
+        cmd.angular.z = 0.0
 
-                # loop inside boundary, check if there are obstacles
-                for y in range( int((self.robot_position_y*100) - boundary), int((self.robot_position_y*100) + boundary) ):
-                    for x in range( int((self.robot_position_x*100) - boundary), int((self.robot_position_x*100) + boundary) ):
-                        map_point = self.map[x, y]
-                        if map_point < 1:
-                            # Obstacle detected!
-                            detected_obstacle = True
+        # Send command
+        self.cmd_vel_pub.publish(cmd)
 
-                            # Here design your own routine for obstacle avoidance!
+    def rotate(self, angular_velocity):
+        # create Twist message
+        cmd = Twist()
+        cmd.linear.x = 0.0
+        cmd.angular.z = angular_velocity
 
-                            # for logging: visualize using console plugin in rqt.
-                            rospy.loginfo("close to obstacle y %f  x %f p %f", y, x, map_point)
-
-                            break
-
-            self.rate.sleep()
+        # Send command
+        self.cmd_vel_pub.publish(cmd)
 
     # Update map
     def callback_map(self, data):
@@ -74,7 +63,7 @@ class robot_map_example:
 
             # convert into gray scale
             (rows, cols, channels) = temp_map.shape
-            if cols > 0 and rows > 0 :
+            if cols > 0 and rows > 0:
                 self.map = cv2.cvtColor(temp_map,cv2.COLOR_RGB2GRAY)
 
         except CvBridgeError as e:
@@ -93,13 +82,3 @@ class robot_map_example:
             odometry_msg.pose.pose.orientation.w)
 
         (self.robot_roll, self.robot_pitch, self.robot_yaw) = euler_from_quaternion(quaternion)
-
-
-def main(args):
-    try:
-        ic = robot_map_example()
-    except KeyboardInterrupt:
-        print("Shutting down")
-
-if __name__ == '__main__':
-    main(sys.argv)

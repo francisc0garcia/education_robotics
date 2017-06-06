@@ -14,7 +14,7 @@
         <param name="map_path_file" type="string" value="$(find education_robotics)/simulation/worlds/map_image.png" />
     </node>
 
-    <node name="robot_map_example" pkg="education_robotics" type="robot_map_example.py"  />
+    <node name="robot_map_example" pkg="education_robotics" type="robot_map_example.py" output="screen"  />
 
     <node name="custom_rqt_perspective" pkg="rqt_gui" type="rqt_gui"
           args="--perspective-file  $(find education_robotics)/config/education_robotics_rqt.perspective" />
