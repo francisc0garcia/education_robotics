@@ -351,7 +351,7 @@
             <plugin name='differential_drive_controller' filename='librobot_ros_diff_drive.so'>
                 <alwaysOn>true</alwaysOn>
                 <legacyMode>true</legacyMode>
-                <updateRate>40</updateRate>
+                <updateRate>100</updateRate>
                 <leftJoint>left_wheel_hinge</leftJoint>
                 <rightJoint>right_wheel_hinge</rightJoint>
                 <wheelSeparation>0.66</wheelSeparation>
@@ -360,7 +360,7 @@
                 <commandTopic>/robot/cmd_vel</commandTopic>
                 <odometryTopic>/robot/odom</odometryTopic>
                 <odometryFrame>chassis</odometryFrame>
-                <robotBaseFrame>chassis</robotBaseFrame>
+                <robotBaseFrame>map</robotBaseFrame>
                 <publishWheelTF>true</publishWheelTF>
                 <publishWheelJointState>true</publishWheelJointState>
             </plugin>

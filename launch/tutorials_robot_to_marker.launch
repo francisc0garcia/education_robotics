@@ -1,0 +1,7 @@
+<launch>
+
+    <include file="$(find raspberry_robot)/launch/odometry_map.launch" />
+
+    <node name="robot_to_marker" pkg="education_robotics" type="4_robot_to_marker.py" output="screen"  />
+
+</launch>

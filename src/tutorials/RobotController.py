@@ -10,6 +10,8 @@ from tf.transformations import euler_from_quaternion
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
 import numpy as np
+from visualization_msgs.msg import Marker
+from tf.transformations import euler_from_quaternion
 
 rad2degrees = 180.0/math.pi
 
@@ -23,6 +25,14 @@ class RobotController:
         self.map = np.zeros((0, 0), dtype=np.uint8)
         self.bridge = CvBridge()
 
+        self.marker_id_robot = 0
+        self.marker_id_target = 0
+        self.scale_marker = 1.5
+
+        self.target_position_x = 0.0
+        self.target_position_y = 0.0
+        (self.target_roll, self.target_pitch, self.target_yaw) = [0.0, 0.0, 0.0]
+
         # create a publisher for command velocity
         self.cmd_vel_pub = rospy.Publisher('/robot/cmd_vel', Twist, queue_size=1)
 
@@ -32,11 +42,20 @@ class RobotController:
         # create subscriber for map
         self.image_sub = rospy.Subscriber("/robot/map/image_raw", Image, self.callback_map)
 
+        # create subscriber marker for robot
+        self.marker_sub = rospy.Subscriber("/aruco_system_viewer/visualization_marker", Marker, self.callback_marker)
+
     def get_position(self):
         pos_x = int(self.robot_position_x*100)
         pos_y = int(self.robot_position_y*100)
 
         return [pos_x, pos_y, self.robot_yaw]
+
+    def get_target_position(self):
+        pos_x = int(self.target_position_x*100)
+        pos_y = int(self.target_position_y*100)
+
+        return [pos_x, pos_y, self.target_yaw]
 
     def move(self, linear_velocity):
         # create Twist message
@@ -82,3 +101,28 @@ class RobotController:
             odometry_msg.pose.pose.orientation.w)
 
         (self.robot_roll, self.robot_pitch, self.robot_yaw) = euler_from_quaternion(quaternion)
+
+    def callback_marker(self, msg):
+        if msg.id == self.marker_id_robot:
+            self.robot_position_x = msg.pose.position.x * self.scale_marker
+            self.robot_position_y = msg.pose.position.y * self.scale_marker
+
+            quaternion = (
+                msg.pose.orientation.x,
+                msg.pose.orientation.y,
+                msg.pose.orientation.z,
+                msg.pose.orientation.w)
+
+            (self.robot_roll, self.robot_pitch, self.robot_yaw) = euler_from_quaternion(quaternion)
+
+        if msg.id == self.marker_id_target:
+            self.target_position_x = msg.pose.position.x
+            self.target_position_y = msg.pose.position.y
+
+            quaternion = (
+                msg.pose.orientation.x,
+                msg.pose.orientation.y,
+                msg.pose.orientation.z,
+                msg.pose.orientation.w)
+
+            (self.target_roll, self.target_pitch, self.target_yaw) = euler_from_quaternion(quaternion)

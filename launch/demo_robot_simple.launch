@@ -12,4 +12,16 @@
 
     <node name="robot_move_example" pkg="education_robotics" type="robot_move_example.py"  />
 
+    <arg name="trajectory_target_frame_name" default="/robot/chassis"/>
+    <arg name="trajectory_source_frame_name" default="/robot/map"/>
+    <arg name="trajectory_update_rate" default="10"/>
+    <arg name="trajectory_publish_rate" default="10"/>
+
+    <node pkg="hector_trajectory_server" type="hector_trajectory_server" name="hector_trajectory_server" output="screen">
+        <param name="target_frame_name" type="string" value="$(arg trajectory_target_frame_name)" />
+        <param name="source_frame_name" type="string" value="$(arg trajectory_source_frame_name)" />
+        <param name="trajectory_update_rate" type="double" value="$(arg trajectory_update_rate)" />
+        <param name="trajectory_publish_rate" type="double" value="$(arg trajectory_publish_rate)" />
+    </node>
+
 </launch>
