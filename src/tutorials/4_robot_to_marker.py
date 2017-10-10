@@ -14,8 +14,8 @@ class Robot2Marker:
 
         self.robot = RobotController()
 
-        self.robot.marker_id_target = 4
-        self.robot.marker_id_robot = 0
+        self.robot.marker_id_target = 3
+        self.robot.marker_id_robot = 3
 
         # define rate of  10 hz
         self.rate = rospy.Rate(10.0)
